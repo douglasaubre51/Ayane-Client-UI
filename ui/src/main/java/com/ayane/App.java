@@ -1,6 +1,7 @@
 package com.ayane;
 
 import com.ayane.helpers.UITools;
+import com.ayane.repositories.AccountRepository;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,6 +54,14 @@ public class App {
 
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                AccountRepository repository = new AccountRepository(nameTextField.getText(), emailTextField.getText(),
+                        passwordTextField.getText());
+                boolean result = repository.createNewAccount();
+
+                if (result) {
+                } else {
+                }
+
                 UITools tools = new UITools();
                 tools.clearTextFields(nameTextField, emailTextField, passwordTextField);
             }
