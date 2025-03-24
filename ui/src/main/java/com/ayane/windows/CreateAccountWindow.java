@@ -13,7 +13,7 @@ public class CreateAccountWindow extends JFrame {
         setLayout(null);
         setTitle(name);
         setSize(500, 500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JLabel h1Label = new JLabel("Create an Account");
         h1Label.setBounds(20, 0, 500, 50);
@@ -53,6 +53,8 @@ public class CreateAccountWindow extends JFrame {
                 String email = emailTextField.getText();
                 String password = passwordTextField.getText();
                 boolean result = false;
+
+                PopUpWindow window = new PopUpWindow("message");
 
                 if (!(name.trim().isEmpty() || email.trim().isEmpty() || password.trim().isEmpty())) {
                     AccountRepository repository = new AccountRepository(name, email, password);

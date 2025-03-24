@@ -1,6 +1,7 @@
 package com.ayane;
 
 import com.ayane.windows.CreateAccountWindow;
+import com.ayane.windows.LoginWindow;
 
 /**
  * ayane says hi!
@@ -10,5 +11,6 @@ public class App {
         System.out.println("Hello World!");
 
         CreateAccountWindow createAccount = new CreateAccountWindow("ayane - create account");
+        // LoginWindow login = new LoginWindow("ayane - login");
     }
 }
