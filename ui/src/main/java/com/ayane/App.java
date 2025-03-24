@@ -54,9 +54,15 @@ public class App {
 
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                AccountRepository repository = new AccountRepository(nameTextField.getText(), emailTextField.getText(),
-                        passwordTextField.getText());
-                boolean result = repository.createNewAccount();
+                String name = nameTextField.getText();
+                String email = emailTextField.getText();
+                String password = passwordTextField.getText();
+                boolean result = false;
+
+                if (!(name.trim().isEmpty() || email.trim().isEmpty() || password.trim().isEmpty())) {
+                    AccountRepository repository = new AccountRepository(name, email, password);
+                    result = repository.createNewAccount();
+                }
 
                 if (result) {
                 } else {

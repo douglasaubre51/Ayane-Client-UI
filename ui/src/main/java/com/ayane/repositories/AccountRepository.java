@@ -8,8 +8,9 @@ public class AccountRepository {
     String name;
     String email;
     String password;
+
     String siteUrl = "https://ayane-web-api.onrender.com/addUser";
-    String payload = "{\"name\":\"%s\",\"email\":\"%s\",\"password\":\"%s\"}";
+    String payload = "{\"name\":\"%S\",\"email\":\"%S\",\"password\":\"%S\"}";
 
     public AccountRepository(String name, String email, String password) {
         this.name = name;
@@ -31,7 +32,9 @@ public class AccountRepository {
 
             try (DataOutputStream stream = new DataOutputStream(connection.getOutputStream())) {
                 System.out.println("connected! sending payload");
-                String.format(payload, name, email, password);
+
+                payload = String.format(payload, name, email, password);
+                System.out.println(payload);
                 stream.writeBytes(payload);
                 stream.flush();
             }
@@ -42,6 +45,10 @@ public class AccountRepository {
 
             else {
                 System.out.println(connection.getResponseCode() + " - error:account was not created!");
+                System.out.println(name);
+                System.out.println(email);
+                System.out.println(password);
+
                 connection.disconnect();
                 return false;
             }
