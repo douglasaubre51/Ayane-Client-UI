@@ -10,7 +10,7 @@ public class AccountRepository {
     String password;
 
     String siteUrl = "https://ayane-web-api.onrender.com/addUser";
-    String payload = "{\"name\":\"%S\",\"email\":\"%S\",\"password\":\"%S\"}";
+    String payload = "{\"name\":\"%s\",\"email\":\"%s\",\"password\":\"%S\"}";
 
     public AccountRepository(String name, String email, String password) {
         this.name = name;
