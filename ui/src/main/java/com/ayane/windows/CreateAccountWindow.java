@@ -10,9 +10,10 @@ import java.awt.event.ActionListener;
 
 public class CreateAccountWindow extends JFrame {
     public CreateAccountWindow(String name) {
+        setLocationRelativeTo(null);
         setLayout(null);
         setTitle(name);
-        setSize(500, 500);
+        setSize(500, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JLabel h1Label = new JLabel("Create an Account");
@@ -49,23 +50,29 @@ public class CreateAccountWindow extends JFrame {
 
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                boolean result = false;
+
                 String name = nameTextField.getText();
                 String email = emailTextField.getText();
                 String password = passwordTextField.getText();
-                boolean result = false;
 
-                PopUpWindow window = new PopUpWindow("message");
+                UITools tools = new UITools();
 
-                if (!(name.trim().isEmpty() || email.trim().isEmpty() || password.trim().isEmpty())) {
+                boolean isValid = tools.validateFields(nameTextField, emailTextField, passwordTextField);
+
+                if (isValid) {
                     AccountRepository repository = new AccountRepository(name, email, password);
                     result = repository.createNewAccount();
                 }
 
                 if (result) {
+                    PopUpWindow window = new PopUpWindow("action result!");
+                    dispose();
                 } else {
+                    PopUpWindow window = new PopUpWindow("action result!", "failed to create new account!");
+                    dispose();
                 }
 
-                UITools tools = new UITools();
                 tools.clearTextFields(nameTextField, emailTextField, passwordTextField);
             }
         });

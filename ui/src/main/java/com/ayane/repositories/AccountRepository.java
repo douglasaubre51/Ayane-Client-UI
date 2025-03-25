@@ -1,7 +1,10 @@
 package com.ayane.repositories;
 
 import java.net.URL;
+import java.net.URLConnection;
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 
 public class AccountRepository {
@@ -12,10 +15,41 @@ public class AccountRepository {
     String siteUrl = "https://ayane-web-api.onrender.com/addUser";
     String payload = "{\"name\":\"%s\",\"email\":\"%s\",\"password\":\"%S\"}";
 
+    String getUrl = "https://ayane-web-api.onrender.com/getUser?email=%s&password=%s";
+
+    public AccountRepository(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public AccountRepository(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public boolean login() {
+        try {
+            String connectionString = String.format(getUrl, email, password);
+            URL url = new URL(getUrl);
+            URLConnection connection = url.openConnection();
+
+            InputStreamReader reader = new InputStreamReader(connection.getInputStream());
+
+            BufferedReader buffer = new BufferedReader(reader);
+
+            String data;
+
+            while ((data = buffer.readLine()) != null) {
+                System.out.println(data);
+            }
+
+            reader.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public boolean createNewAccount() {

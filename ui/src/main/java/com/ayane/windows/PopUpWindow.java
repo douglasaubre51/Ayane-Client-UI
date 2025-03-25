@@ -1,12 +1,11 @@
 package com.ayane.windows;
 
-import java.awt.BorderLayout;
-import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 
 public class PopUpWindow extends JFrame {
     PopUpWindow(String name) {
@@ -22,8 +21,37 @@ public class PopUpWindow extends JFrame {
 
         JButton loginButton = new JButton("login");
         loginButton.setBounds(30, 60, 100, 20);
-
+        loginButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                LoginWindow window = new LoginWindow("ayane - login");
+                dispose();
+            }
+        });
         add(loginButton);
+
+        setVisible(true);
+    }
+
+    PopUpWindow(String name, String message) {
+        setLayout(null);
+        setTitle(name);
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        JLabel label = new JLabel(message);
+        label.setBounds(30, 0, 250, 20);
+        add(label);
+
+        JButton createAccountButton = new JButton("try again");
+        createAccountButton.setBounds(30, 60, 100, 20);
+        createAccountButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CreateAccountWindow window = new CreateAccountWindow("ayane - create new account!");
+                dispose();
+            }
+        });
+        add(createAccountButton);
 
         setVisible(true);
     }
