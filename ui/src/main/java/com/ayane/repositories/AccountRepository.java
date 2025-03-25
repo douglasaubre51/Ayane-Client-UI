@@ -15,7 +15,7 @@ public class AccountRepository {
     String siteUrl = "https://ayane-web-api.onrender.com/addUser";
     String payload = "{\"name\":\"%s\",\"email\":\"%s\",\"password\":\"%S\"}";
 
-    String getUrl = "https://ayane-web-api.onrender.com/getUser?email=%s&password=%s";
+    String getUrl = "https://ayane-web-api.onrender.com/getUserByEmail?email=%s&password=%s";
 
     public AccountRepository(String email, String password) {
         this.email = email;
@@ -31,16 +31,19 @@ public class AccountRepository {
     public boolean login() {
         try {
             String connectionString = String.format(getUrl, email, password);
-            URL url = new URL(getUrl);
+            URL url = new URL(connectionString);
             URLConnection connection = url.openConnection();
+            System.out.println("opened connection to ayane!");
 
             InputStreamReader reader = new InputStreamReader(connection.getInputStream());
+            System.out.println("got input stream!");
 
             BufferedReader buffer = new BufferedReader(reader);
 
             String data;
 
             while ((data = buffer.readLine()) != null) {
+                System.out.println("reading data stream from ayane!");
                 System.out.println(data);
             }
 
@@ -48,8 +51,9 @@ public class AccountRepository {
 
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
+        return true;
     }
 
     public boolean createNewAccount() {

@@ -42,14 +42,26 @@ public class LoginWindow extends JFrame {
         submitButton.setBounds(40, 140, 80, 20);
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                boolean result = false;
+                UITools tools = new UITools();
+
                 String email = emailTextField.getText();
                 String password = passwordTextField.getText();
 
-                AccountRepository repository = new AccountRepository(email, password);
-                repository.login();
+                boolean isValid = tools.validateFields(emailTextField, passwordTextField);
 
-                UITools tools = new UITools();
-                tools.clearTextFields(emailTextField, passwordTextField);
+                if (isValid) {
+                    AccountRepository repository = new AccountRepository(email, password);
+                    result = repository.login();
+
+                    tools.clearTextFields(emailTextField, passwordTextField);
+                }
+
+                if (result) {
+                    System.out.println("login success!");
+                } else {
+                    System.out.println("login failure!");
+                }
             }
         });
         add(submitButton);
