@@ -11,6 +11,8 @@ import com.ayane.repositories.AccountRepository;
 
 public class LoginWindow extends JFrame {
     public LoginWindow(String name) {
+                    ChatWindow window=new ChatWindow("broadcast");
+                    dispose();
         setLocationRelativeTo(null);
         setLayout(null);
         setTitle(name);
@@ -57,8 +59,10 @@ public class LoginWindow extends JFrame {
                     tools.clearTextFields(emailTextField, passwordTextField);
                 }
 
-                if (result) {
+                if (result==true) {
                     System.out.println("login success!");
+                    
+
                 } else {
                     System.out.println("login failure!");
                 }
@@ -86,6 +90,6 @@ public class LoginWindow extends JFrame {
         });
         add(createAccountButton);
 
-        setVisible(true);
+        setVisible(false);
     }
 }

@@ -12,10 +12,10 @@ public class AccountRepository {
     String email;
     String password;
 
-    String siteUrl = "https://ayane-web-api.onrender.com/addUser";
+    String siteUrl = "http://localhost:8080/addUser";
     String payload = "{\"name\":\"%s\",\"email\":\"%s\",\"password\":\"%S\"}";
 
-    String getUrl = "https://ayane-web-api.onrender.com/getUserByEmail?email=%s&password=%s";
+    String getUrl = "http://localhost:8080/getUserByEmail?email=%s&password=%s";
 
     public AccountRepository(String email, String password) {
         this.email = email;
@@ -45,6 +45,10 @@ public class AccountRepository {
             while ((data = buffer.readLine()) != null) {
                 System.out.println("reading data stream from ayane!");
                 System.out.println(data);
+
+                if(data=="false"){
+                    return false;
+                }
             }
 
             reader.close();

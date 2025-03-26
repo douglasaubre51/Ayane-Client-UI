@@ -1,36 +1,24 @@
 package com.ayane.websocketClients;
 
 import jakarta.websocket.*;
+
+import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.*;
 
-@ClientEndpoint
 public class ClientApp {
-    private static Session session;
-
-    @OnOpen
-    public void OnOpen(Session session) {
-        ClientApp.session = session;
-        System.out.println("connection established!");
-    }
-
-    @OnMessage
-    public void OnMessage(String message) {
-        System.out.println("message : " + message);
-    }
-
-    @OnClose
-    public void OnClose(Session session) {
-        System.out.println("disconnected!");
-    }
-
-    public void main() {
+    public static String chat;
+    public ClientApp() throws DeploymentException, IOException, URISyntaxException {
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-        try {
-            container.connectToServer(ClientApp.class, new URI("ws://ayane-web-api.onrender.com/chat"));
+        container.connectToServer(ClientApp.class, new URI("ws://localhost:8080/chat"));
+    }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private static Session session;
+    public static ArrayList<String> list = new ArrayList();
+
+
+    public static String getMessage(){
+        return chat;
     }
 }
